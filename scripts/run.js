@@ -20,15 +20,12 @@ const main = async () => {
       hre.ethers.utils.formatEther(contractBalance)
     );
     
-    //let waveCount;                                                                  //declare variable to store number of waves
-    //waveCount = await waveContract.getTotalWaves();                                 //get total number of waves
-  
-    //console.log(waveCount.toNumber());
     
-    //semd a wave to the contract
-    let waveTxn = await waveContract.wave('Yo this is my sample message');                                      //create transaction to send a wave
+    let waveTxn = await waveContract.wave('Yo this is my first wave message');                                      //create transaction to send a wave
     await waveTxn.wait();                                                           //wait for transaction to be mined
 
+    const waveTxn2 = await waveContract.wave('This is wave #2');
+    await waveTxn2.wait();
     /*
     * Get Contract balance to see what happened!
     */
@@ -38,14 +35,6 @@ const main = async () => {
     hre.ethers.utils.formatEther(contractBalance)
     );
     
-    //const [_, randomPerson] = await hre.ethers.getSigners();                    // Get random person to sign the contract
-    
-    //waveCount = await waveContract.getTotalWaves();                                 //get total number of waves
-
-    //waveTxn = await waveContract.connect(randomPerson).wave('Another message from a random');
-    //await waveTxn.wait();
-
-    //waveCount = await waveContract.getTotalWaves();
     let allWaves = await waveContract.getAllWaves();
     console.log(allWaves);
 

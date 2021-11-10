@@ -17,6 +17,8 @@ contract WavePortal {
 
     Wave[] waves; // this is an array of wave Structs
 
+    mapping(address => uint256) public lastWavedAt;
+
     constructor() payable {
         //the payable keyword lets our smart contract pay people
         console.log("Zongo this is your first smart contract");
@@ -24,6 +26,19 @@ contract WavePortal {
     }
 
     function wave(string memory _message) public {
+        /*
+         * We need to make sure the current timestamp is at least 15-minutes bigger than the last timestamp we stored
+         */
+        require(
+            lastWavedAt[msg.sender] + 15 minutes < block.timestamp,
+            "Wait 15m"
+        );
+
+        /*
+         * Update the current timestamp we have for the user
+         */
+        lastWavedAt[msg.sender] = block.timestamp;
+
         totalWaves += 1;
         console.log("%s has waved!", msg.sender);
 
@@ -37,6 +52,7 @@ contract WavePortal {
         /*
          * Give a 50% chance that the user wins the prize.
          */
+        console.log("Random # generated: ", seed);
         if (seed <= 50) {
             console.log("%s won!", msg.sender);
 
