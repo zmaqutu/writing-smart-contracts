@@ -17,7 +17,7 @@ contract WavePortal {
 
     Wave[] waves; // this is an array of wave Structs
 
-    mapping(address => uint256) public lastWavedAt;
+    mapping(address => uint256) public lastWavedAt; //a map with address as unique key and timestamp (uint256) as value
 
     constructor() payable {
         //the payable keyword lets our smart contract pay people
@@ -69,13 +69,6 @@ contract WavePortal {
         }
 
         emit NewWave(msg.sender, block.timestamp, _message);
-        // uint256 prizeAmount = 0.0001 ether;
-        // require(
-        //     prizeAmount <= address(this).balance,
-        //     "Trying to withdraw more money than the contract has."
-        // );
-        // (bool success, ) = (msg.sender).call{value: prizeAmount}("");
-        // require(success, "Failed to withdraw money from contract.");
     }
 
     function getAllWaves() public view returns (Wave[] memory) {
